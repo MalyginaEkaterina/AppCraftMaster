@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_add_task">
+
+    <fragment
+        android:id="@+id/nav_add_task"
+        android:name="com.example.appcraftmaster.ui.addTask.AddTaskFragment"
+        android:label="@string/menu_add_task"
+        tools:layout="@layout/fragment_add_task" />
+
+    <fragment
+        android:id="@+id/nav_find_task"
+        android:name="com.example.appcraftmaster.ui.findTask.FindTaskFragment"
+        android:label="@string/menu_find_task"
+        tools:layout="@layout/fragment_find_task" />
+
+    <fragment
+        android:id="@+id/nav_my_tasks"
+        android:name="com.example.appcraftmaster.ui.myTasks.MyTasksFragment"
+        android:label="@string/menu_my_tasks"
+        tools:layout="@layout/fragment_my_tasks" />
+
+    <fragment
+        android:id="@+id/nav_add_offer"
+        android:name="com.example.appcraftmaster.ui.addOffer.AddOfferFragment"
+        android:label="@string/menu_add_offer"
+        tools:layout="@layout/fragment_add_offer" />
+
+    <fragment
+        android:id="@+id/nav_find_offer"
+        android:name="com.example.appcraftmaster.ui.findOffer.FindOfferFragment"
+        android:label="@string/menu_find_offer"
+        tools:layout="@layout/fragment_find_offer" />
+
+    <fragment
+        android:id="@+id/nav_notification"
+        android:name="com.example.appcraftmaster.ui.notification.NotificationFragment"
+        android:label="@string/menu_notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/nav_select_category"
+        android:name="com.example.appcraftmaster.ui.categories.CategoriesFragment"
+        android:label="@string/title_categories"
+        tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/nav_select_child_category"
+        android:name="com.example.appcraftmaster.ui.categories.ChildCategoriesFragment"
+        tools:layout="@layout/fragment_categories" />
+
+    <fragment
+        android:id="@+id/nav_add_task_info"
+        android:name="com.example.appcraftmaster.ui.addTask.TaskInfoFragment"
+        android:label="@string/title_add_task_info"
+        tools:layout="@layout/fragment_task_info" />
+</navigation>

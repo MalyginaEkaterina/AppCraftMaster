@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Craft Master</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_exit">Выйти из аккаунта</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_add_task">Создать задание</string>
+    <string name="menu_find_task">Найти задания</string>
+    <string name="menu_my_tasks">Мои задания</string>
+    <string name="menu_add_offer">Стать исполнителем</string>
+    <string name="menu_find_offer">Найти исполнителя</string>
+    <string name="menu_notification">Уведомления</string>
+    <string name="login_hint">Логин</string>
+    <string name="pass_hint">Пароль</string>
+    <string name="login_btn">Войти</string>
+    <string name="registr_btn">Зарегистрироваться</string>
+    <string name="empty_login_pass">Введите логин и пароль</string>
+    <string name="reg_login_hint">Логин</string>
+    <string name="reg_pass_hint">Пароль</string>
+    <string name="reg_fio_hint">Имя</string>
+    <string name="reg_phone_hint">Номер телефона</string>
+    <string name="reg_btn_text">Зарегистрироваться</string>
+    <string name="reg_success">Регистрация прошла успешно</string>
+    <string name="reg_not_success">Регистрация не завершена. Попробуйте позднее.</string>
+    <string name="toast_log_out">Выполняется выход</string>
+    <string name="toast_incorrect_login_password">Некорректные логин и пароль</string>
+    <string name="select_category_btn">Выбрать категорию</string>
+    <string name="title_categories">Выбрать категорию</string>
+    <string name="title_add_task_info">Задание</string>
+    <string name="add_task_btn">Создать задание</string>
+    <string name="add_task_name_hint">Название задания</string>
+    <string name="add_task_description_hint">Опишите, что нужно сделать</string>
+    <string name="toast_add_task_name">Укажите название задания</string>
+    <string name="toast_add_task_ok">Задание создано</string>
+    <string name="dialog_add_task_title">Создать задание</string>
+    <string name="dialog_add_task_msg">Задание успешно создано</string>
+    <string name="dialog_add_task_ok">OK</string>
+</resources>
