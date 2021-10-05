@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
@@ -19,9 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appcraftmaster.MyApp;
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.model.Category;
-import com.example.appcraftmaster.model.CategoryList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChildCategoriesFragment extends Fragment {
@@ -32,7 +29,7 @@ public class ChildCategoriesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
         //private CategoriesViewModel categoriesViewModel;
-        RecyclerView recyclerViewCategories = view.findViewById(R.id.recyclerViewCategories);
+        RecyclerView recyclerViewCategories = view.findViewById(R.id.recyclerViewSelectCategories);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
 
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);

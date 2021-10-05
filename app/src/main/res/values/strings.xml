@@ -13,7 +13,7 @@
     <string name="menu_add_task">Создать задание</string>
     <string name="menu_find_task">Найти задания</string>
     <string name="menu_my_tasks">Мои задания</string>
-    <string name="menu_add_offer">Стать исполнителем</string>
+    <string name="menu_add_offer">Мой профиль</string>
     <string name="menu_find_offer">Найти исполнителя</string>
     <string name="menu_notification">Уведомления</string>
     <string name="login_hint">Логин</string>
@@ -41,4 +41,25 @@
     <string name="dialog_add_task_title">Создать задание</string>
     <string name="dialog_add_task_msg">Задание успешно создано</string>
     <string name="dialog_add_task_ok">OK</string>
+    <string name="text_view_add_offer_label_text">Выбранные категории</string>
+    <string name="btn_add_offer_select_category">Выбрать категории</string>
+    <string name="btn_add_profile">Добавить</string>
+    <string name="btn_add_offer_ok">Сохранить</string>
+    <string name="btn_add_offer_cancel">Отмена</string>
+    <string name="add_offer_label_text">Выполняемые работы:</string>
+    <string name="profile_item_cat_label">Категория:</string>
+    <string name="profile_item_work_exp">Опыт работы:</string>
+    <string name="profile_item_descr">Описание:</string>
+    <string name="add_profile_title">Добавить профиль</string>
+    <string name="add_profile_cat_label">Категория</string>
+    <string name="add_profile_work_exp_label">Опыт работы</string>
+    <string name="add_profile_desc_label">Описание</string>
+    <string name="add_profile_btn">Сохранить</string>
+    <string name="select_categories_title_all_cat">Все категории</string>
+    <string name="add_profile_toast_input_cat">Выберите категорию</string>
+    <string name="add_profile_toast_input_work_exp">Укажите опыт</string>
+    <string name="delete_profile_title">Удалить</string>
+    <string name="dialog_profiles_changes">Изменения сохранены</string>
+    <string name="dialog_profiles_changes_error">Ошибка. Попробуйте позднее.</string>
+    <string name="dialog_ok">OK</string>
 </resources>

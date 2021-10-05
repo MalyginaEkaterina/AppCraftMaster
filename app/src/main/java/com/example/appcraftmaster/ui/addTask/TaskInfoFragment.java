@@ -25,6 +25,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.appcraftmaster.Common;
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.StatusCode;
 import com.example.appcraftmaster.model.Category;
@@ -78,7 +79,8 @@ public class TaskInfoFragment extends Fragment {
                 JSONObject offerJson = new JSONObject(gson.toJson(offer));
                 RequestQueue mRequestQueue = Volley.newRequestQueue(getContext());
                 String url = "http://10.0.2.2:8189/craftmaster/api/v1/offers";
-                JsonObjectRequest request = new JsonObjectRequestWithToken(Request.Method.PUT,
+                JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext()),
+                        Request.Method.PUT,
                         url,
                         offerJson,
                         response -> {
@@ -96,7 +98,7 @@ public class TaskInfoFragment extends Fragment {
                                 dialog.show();
 
                                 NavOptions.Builder builderNav = new NavOptions.Builder();
-                                NavOptions navOptions = builderNav.setEnterAnim(R.anim.slide_in_left).build();
+                                NavOptions navOptions = builderNav.setEnterAnim(R.anim.slide_in_left).setPopUpTo(R.id.nav_add_task, true).build();
                                 navController.navigate(R.id.nav_add_task, null, navOptions);
                             }
                         },
@@ -105,25 +107,6 @@ public class TaskInfoFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private class JsonObjectRequestWithToken extends JsonObjectRequest {
-
-        public JsonObjectRequestWithToken(int method,
-                                          String url,
-                                          @Nullable JSONObject jsonRequest,
-                                          Response.Listener<JSONObject> listener,
-                                          @Nullable Response.ErrorListener errorListener) {
-            super(method, url, jsonRequest, listener, errorListener);
-        }
-
-        @Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
-            HashMap<String, String> headers = new HashMap<>();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
-            headers.put("Authorization", preferences.getString("token", ""));
-            return headers;
         }
     }
 

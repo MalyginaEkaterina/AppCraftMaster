@@ -1,6 +1,5 @@
 package com.example.appcraftmaster.ui.categories;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.model.Category;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder> {
@@ -42,6 +40,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public void onBindViewHolder(@NonNull CategoriesViewHolder holder, int position) {
         Category category = categories.get(position);
         holder.textViewCategoryName.setText(String.format("%s", category.getName()));
+        if (category.getChild().isEmpty()) {
+            holder.textViewCatItemCur.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -51,18 +52,18 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     class CategoriesViewHolder extends RecyclerView.ViewHolder{
         private TextView textViewCategoryName;
+        private TextView textViewCatItemCur;
 
         public CategoriesViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewCategoryName = itemView.findViewById(R.id.textViewCategoryName);
+            textViewCatItemCur = itemView.findViewById(R.id.textViewCatItemCur);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    v.setBackgroundColor(itemView.getResources().getColor(R.color.secondaryLightColor, itemView.getContext().getTheme()));
                     if (onCategoryClickListener != null) {
                         onCategoryClickListener.onCategoryClick(getAdapterPosition());
                     }
-                    v.setBackgroundColor(itemView.getResources().getColor(R.color.white, itemView.getContext().getTheme()));
                 }
             });
         }

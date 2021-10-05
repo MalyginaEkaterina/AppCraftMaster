@@ -26,6 +26,8 @@
         android:layout_marginTop="20dp"
         android:onClick="selectCategory"
         android:text="@string/select_category_btn"
+        android:textAllCaps="false"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_home" />

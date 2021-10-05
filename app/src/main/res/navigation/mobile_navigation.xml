@@ -57,4 +57,15 @@
         android:name="com.example.appcraftmaster.ui.addTask.TaskInfoFragment"
         android:label="@string/title_add_task_info"
         tools:layout="@layout/fragment_task_info" />
+
+    <fragment
+        android:id="@+id/nav_add_profile"
+        android:name="com.example.appcraftmaster.ui.addOffer.AddProfileFragment"
+        android:label="@string/add_profile_title"
+        tools:layout="@layout/fragment_add_profile" />
+
+    <fragment
+        android:id="@+id/nav_add_profile_select_category"
+        android:name="com.example.appcraftmaster.ui.addOffer.SelectCategoriesFragment"
+        tools:layout="@layout/fragment_select_categories" />
 </navigation>

@@ -6,10 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
@@ -18,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appcraftmaster.MyApp;
 import com.example.appcraftmaster.R;
-import com.example.appcraftmaster.model.Category;
 import com.example.appcraftmaster.model.CategoryList;
 
 import java.util.ArrayList;
@@ -27,14 +23,13 @@ import java.util.List;
 
 public class CategoriesFragment extends Fragment {
 
-    //private CategoriesViewModel categoriesViewModel;
     private RecyclerView recyclerViewCategories;
     private NavController navController;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
-        recyclerViewCategories = view.findViewById(R.id.recyclerViewCategories);
+        recyclerViewCategories = view.findViewById(R.id.recyclerViewSelectCategories);
         recyclerViewCategories.setLayoutManager(new LinearLayoutManager(getContext()));
 
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);

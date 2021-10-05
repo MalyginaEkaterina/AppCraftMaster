@@ -32,6 +32,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.appcraftmaster.databinding.ActivityMainBinding;
 import com.example.appcraftmaster.model.Category;
 import com.example.appcraftmaster.model.CategoryList;
+import com.example.appcraftmaster.model.Profile;
+import com.example.appcraftmaster.model.ProfileList;
 import com.example.appcraftmaster.model.UserInfo;
 import com.example.appcraftmaster.ui.addTask.TaskInfoFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView navUserPhone;
     private MutableLiveData<UserInfo> liveUserInfo;
     private MutableLiveData<List<Category>> categories;
+    //private MutableLiveData<List<Profile>> profiles;
     private NavController navController;
 
     @Override
@@ -73,8 +76,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show());
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -124,6 +126,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+//        ProfileList profileList = ((MyApp) getApplicationContext()).getProfileListFromServer();
+//        if (profileList == null && !token.isEmpty()) {
+//            getProfiles().observe(this, profiles -> {
+//                ((MyApp) getApplicationContext()).setProfileListFromServer(new ProfileList(profiles));
+//                if (!profiles.isEmpty()) {
+//                    ((MyApp) getApplicationContext()).flushProfiles();
+//                }
+//            });
+//        }
     }
 
     @Override
@@ -164,8 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void doLogOut() {
         preferences.edit().putString("token", "").apply();
-        ((MyApp) getApplicationContext()).setUserInfo(null);
-        ((MyApp) getApplicationContext()).setCategoryList(null);
+        ((MyApp) getApplicationContext()).logOut();
         Intent intent = new Intent(MainActivity.this, AuthActivity.class);
         startActivity(intent);
     }
@@ -201,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             mRequestQueue = Volley.newRequestQueue(getApplication());
             categories = new MutableLiveData<>();
             String url = "http://10.0.2.2:8189/craftmaster/api/v1/services/";
-            JsonArrayRequest request = new JsonArrayRequestWithToken(Request.Method.GET,
+            JsonArrayRequest request = new Common.JsonArrayRequestWithToken(preferences, Request.Method.GET,
                     url,
                     null,
                     response -> {
@@ -213,6 +223,24 @@ public class MainActivity extends AppCompatActivity {
         }
         return categories;
     }
+
+//    public LiveData<List<Profile>> getProfiles() {
+//        if (profiles == null) {
+//            mRequestQueue = Volley.newRequestQueue(getApplication());
+//            profiles = new MutableLiveData<>();
+//            String url = "http://10.0.2.2:8189/craftmaster/api/v1/profiles/";
+//            JsonArrayRequest request = new Common.JsonArrayRequestWithToken(preferences, Request.Method.GET,
+//                    url,
+//                    null,
+//                    response -> {
+//                        Gson gson = new Gson();
+//                        profiles.setValue(gson.fromJson(response.toString(), new TypeToken<List<Profile>>() {
+//                        }.getType()));
+//                    }, error -> error.printStackTrace());
+//            mRequestQueue.add(request);
+//        }
+//        return profiles;
+//    }
 
     private class StringRequestWithToken extends StringRequest {
 
@@ -249,21 +277,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class JsonArrayRequestWithToken extends JsonArrayRequest {
-
-        public JsonArrayRequestWithToken(int method,
-                                         String url,
-                                         JSONArray jsonRequest,
-                                         Response.Listener<JSONArray> listener,
-                                         @Nullable Response.ErrorListener errorListener) {
-            super(method, url, jsonRequest, listener, errorListener);
-        }
-
-        @Override
-        public Map<String, String> getHeaders() throws AuthFailureError {
-            HashMap<String, String> headers = new HashMap<>();
-            headers.put("Authorization", preferences.getString("token", ""));
-            return headers;
-        }
-    }
+//    private class JsonArrayRequestWithToken extends JsonArrayRequest {
+//
+//        public JsonArrayRequestWithToken(int method,
+//                                         String url,
+//                                         JSONArray jsonRequest,
+//                                         Response.Listener<JSONArray> listener,
+//                                         @Nullable Response.ErrorListener errorListener) {
+//            super(method, url, jsonRequest, listener, errorListener);
+//        }
+//
+//        @Override
+//        public Map<String, String> getHeaders() throws AuthFailureError {
+//            HashMap<String, String> headers = new HashMap<>();
+//            headers.put("Authorization", preferences.getString("token", ""));
+//            return headers;
+//        }
+//    }
 }

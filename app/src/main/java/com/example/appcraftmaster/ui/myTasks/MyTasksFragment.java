@@ -11,29 +11,29 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.databinding.FragmentMyTasksBinding;
+import com.google.android.material.tabs.TabLayout;
 
 public class MyTasksFragment extends Fragment {
 
-    private MyTasksViewModel slideshowViewModel;
+    private MyTasksViewModel myTaskViewModel;
     private FragmentMyTasksBinding binding;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(MyTasksViewModel.class);
+        myTaskViewModel = new ViewModelProvider(this).get(MyTasksViewModel.class);
 
         binding = FragmentMyTasksBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        //viewPager = (ViewPager) root.findViewById(R.id.viewpagerTasks);
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        //tabLayout = (TabLayout) root.findViewById(R.id.tabLayoutTasks);
+        //tabLayout.setupWithViewPager(viewPager);
         return root;
     }
 
