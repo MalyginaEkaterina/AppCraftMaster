@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
+    private final int NUM_ITEMS = 2;
+
     public ViewPagerAdapter(@NonNull Fragment fragment) {
         super(fragment);
     }
@@ -17,11 +19,18 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @NotNull
     @Override
     public Fragment createFragment(int position) {
-        return null;
+        switch (position) {
+            case 0:
+                return new CustomerTasks();
+            case 1:
+                return new ExecutorTasks();
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return NUM_ITEMS;
     }
 }

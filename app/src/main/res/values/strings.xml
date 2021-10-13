@@ -62,4 +62,13 @@
     <string name="dialog_profiles_changes">Изменения сохранены</string>
     <string name="dialog_profiles_changes_error">Ошибка. Попробуйте позднее.</string>
     <string name="dialog_ok">OK</string>
+    <string name="text_view_my_task_cat_label">Категория:</string>
+    <string name="text_view_my_task_status_label">Статус:</string>
+    <string name="btn_close_task_text">Закрыть</string>
+    <string name="btn_done_task_text">Выполнено</string>
+    <string name="toast_server_error">Не удалось обновить</string>
+    <string name="select_date_title">Выберите дату</string>
+    <string name="label_nav_add_response">Добавить отклик</string>
+    <string name="toast_add_response_data">Заполните поля</string>
+    <string name="dialog_add_response_msg">Ваш отклик отправлен</string>
 </resources>

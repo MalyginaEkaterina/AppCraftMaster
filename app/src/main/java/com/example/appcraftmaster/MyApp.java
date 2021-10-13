@@ -6,7 +6,10 @@ import com.example.appcraftmaster.model.Category;
 import com.example.appcraftmaster.model.CategoryList;
 import com.example.appcraftmaster.model.Profile;
 import com.example.appcraftmaster.model.ProfileList;
+import com.example.appcraftmaster.model.Response;
+import com.example.appcraftmaster.model.TaskFull;
 import com.example.appcraftmaster.model.UserInfo;
+import com.example.appcraftmaster.ui.myTasks.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,25 @@ public class MyApp extends Application {
     private ProfileList profileListFromServer;
     private List<Profile> profileList = new ArrayList<>();
     private List<Long> deletedProfilesId = new ArrayList<>();
+    private List<TaskFull> myTasks = new ArrayList<>();
+    private Boolean needUpdateMyTasks = true;
+
+    public List<TaskFull> getMyTasks() {
+        return myTasks;
+    }
+
+    public void setMyTasks(List<TaskFull> tasks) {
+        myTasks.clear();
+        myTasks.addAll(tasks);
+    }
+
+    public Boolean getNeedUpdateMyTasks() {
+        return needUpdateMyTasks;
+    }
+
+    public void setNeedUpdateMyTasks(Boolean needUpdateMyTasks) {
+        this.needUpdateMyTasks = needUpdateMyTasks;
+    }
 
     public UserInfo getUserInfo() {
         return userInfo;
@@ -76,9 +98,22 @@ public class MyApp extends Application {
         setProfileListFromServer(null);
         profileList.clear();
         deletedProfilesId.clear();
+        myTasks.clear();
+        setNeedUpdateMyTasks(true);
     }
 
     public List<Profile> getProfilesChanges() {
         return profileList.stream().filter(profile -> profile.getId() == null).collect(Collectors.toList());
+    }
+
+    public void setTaskStatusClose(int pos) {
+        myTasks.get(pos).setStatus(TaskStatus.CLOSED.getId());
+    }
+
+    public void setTaskStatusAssigned(int pos, Response acceptedResp) {
+        TaskFull task = myTasks.get(pos);
+        task.setStatus(TaskStatus.ASSIGNED.getId());
+        task.setAcceptedResponse(acceptedResp);
+
     }
 }

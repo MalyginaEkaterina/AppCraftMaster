@@ -12,9 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.appcraftmaster.databinding.FragmentMyTasksBinding;
 import com.example.appcraftmaster.databinding.FragmentNotificationBinding;
-import com.example.appcraftmaster.ui.myTasks.MyTasksViewModel;
 
 public class NotificationFragment extends Fragment {
 

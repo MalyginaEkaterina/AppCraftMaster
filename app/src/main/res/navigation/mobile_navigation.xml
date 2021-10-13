@@ -68,4 +68,20 @@
         android:id="@+id/nav_add_profile_select_category"
         android:name="com.example.appcraftmaster.ui.addOffer.SelectCategoriesFragment"
         tools:layout="@layout/fragment_select_categories" />
+
+    <fragment
+        android:id="@+id/nav_task_full_info"
+        android:name="com.example.appcraftmaster.ui.myTasks.TaskFullInfoFragment"
+        tools:layout="@layout/fragment_my_task_full_info" />
+
+    <fragment
+        android:id="@+id/nav_other_task_full_info"
+        android:name="com.example.appcraftmaster.ui.findTask.OtherTaskFullInfoFragment"
+        tools:layout="@layout/fragment_other_task_full_info" />
+
+    <fragment
+        android:id="@+id/nav_add_response"
+        android:name="com.example.appcraftmaster.ui.findTask.AddResponseFragment"
+        android:label="@string/label_nav_add_response"
+        tools:layout="@layout/fragment_add_response" />
 </navigation>
