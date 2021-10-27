@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Profile {
     private Long id;
-    private Category category;
+    private Occupation occupation;
     private Integer workExp;
     private String description;
 }

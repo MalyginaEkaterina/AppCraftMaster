@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddProfilesDto {
-    private List<Profile> profiles;
+    private List<AddProfile> profiles;
 }

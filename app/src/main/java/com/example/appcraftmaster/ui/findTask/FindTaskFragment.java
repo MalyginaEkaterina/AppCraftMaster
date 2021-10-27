@@ -5,17 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.databinding.FragmentFindTaskBinding;
@@ -35,9 +33,9 @@ public class FindTaskFragment extends Fragment {
     private RecyclerView recyclerViewOtherTasks;
     private LinearLayoutManager mLayoutManager;
     private OtherTasksAdapter adapter;
-    private List<OtherTaskFull> otherTasks;
     private ProgressBar progressBarFindTasks;
     private NavController navController;
+    private boolean isPageLoading;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,15 +48,29 @@ public class FindTaskFragment extends Fragment {
         progressBarFindTasks = root.findViewById(R.id.progressBarFindTasks);
         mLayoutManager = new LinearLayoutManager(getContext());
         recyclerViewOtherTasks.setLayoutManager(mLayoutManager);
+        SwipeRefreshLayout swipeRefreshOtherTasks = root.findViewById(R.id.swipeRefreshOtherTasks);
 
-        otherTasks = new ArrayList<>();
-        adapter = new OtherTasksAdapter(otherTasks);
+        progressBarFindTasks.setVisibility(ProgressBar.INVISIBLE);
+        isPageLoading = false;
+        adapter = new OtherTasksAdapter(findTaskViewModel.getOtherTasks());
         recyclerViewOtherTasks.setAdapter(adapter);
 
-        if (otherTasks.isEmpty()) {
+        getNewTasksPage();
+
+        if (findTaskViewModel.getPage().equals(1)) {
             progressBarFindTasks.setVisibility(ProgressBar.VISIBLE);
         }
-        getOtherTasks();
+
+        swipeRefreshOtherTasks.setOnRefreshListener(() -> {
+            findTaskViewModel.refreshAll();
+            isPageLoading = true;
+            findTaskViewModel.getNewPage().observe(getViewLifecycleOwner(), tasksPage -> {
+                findTaskViewModel.addOtherTasks(tasksPage);
+                adapter.notifyDataSetChanged();
+                isPageLoading = false;
+                swipeRefreshOtherTasks.setRefreshing(false);
+            });
+        });
 
         recyclerViewOtherTasks.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -66,10 +78,9 @@ public class FindTaskFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-
-                if (lastVisibleItemPosition == adapter.getItemCount() - 1) {
-                    findTaskViewModel.updateOtherTasks();
-                    getOtherTasks();
+                if (!isPageLoading && lastVisibleItemPosition == adapter.getItemCount() - 1) {
+                    isPageLoading = true;
+                    getNewTasksPage();
                 }
             }
         });
@@ -77,7 +88,7 @@ public class FindTaskFragment extends Fragment {
         adapter.setOnItemClickListener(position -> {
             try {
                 Gson gson = new Gson();
-                JSONObject taskJson = new JSONObject(gson.toJson(otherTasks.get(position)));
+                JSONObject taskJson = new JSONObject(gson.toJson(findTaskViewModel.getOtherTasks().get(position)));
                 Bundle bundle = new Bundle();
                 bundle.putString("otherTask", taskJson.toString());
                 navController.navigate(R.id.nav_other_task_full_info, bundle);
@@ -89,13 +100,15 @@ public class FindTaskFragment extends Fragment {
         return root;
     }
 
-    private void getOtherTasks() {
-        findTaskViewModel.getOtherTasks().observe(getViewLifecycleOwner(), tasks -> {
-            progressBarFindTasks.setVisibility(ProgressBar.INVISIBLE);
-            otherTasks.clear();
-            otherTasks.addAll(tasks);
-            adapter.notifyDataSetChanged();
-        });
+    private void getNewTasksPage() {
+        if (!findTaskViewModel.getWasLastPage()) {
+            findTaskViewModel.getNewPage().observe(getViewLifecycleOwner(), tasksPage -> {
+                progressBarFindTasks.setVisibility(ProgressBar.INVISIBLE);
+                findTaskViewModel.addOtherTasks(tasksPage);
+                adapter.notifyDataSetChanged();
+                isPageLoading = false;
+            });
+        }
     }
 
     @Override

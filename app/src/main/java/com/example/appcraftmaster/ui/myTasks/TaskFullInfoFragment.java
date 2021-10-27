@@ -20,7 +20,6 @@ import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.StatusCode;
 import com.example.appcraftmaster.model.Response;
 import com.example.appcraftmaster.model.TaskFull;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,7 @@ public class TaskFullInfoFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(task.getTitle());
 
         textViewTaskFullInfoName.setText(task.getTitle());
-        textViewTaskFullInfoCat.setText(task.getCategory());
+        textViewTaskFullInfoCat.setText(task.getOccupationName());
         textViewTaskFullInfoDescr.setText(task.getDescription());
         textViewTaskFullInfoCreated.setText(String.format("%s %s", task.getCreatedAt().substring(0, 10), task.getCreatedAt().substring(11, 16)));
         textViewTaskFullInfoStatus.setText(String.format("%s", TaskStatus.getTextById(task.getStatus())));

@@ -74,7 +74,7 @@ public class TaskInfoFragment extends Fragment {
                 RequestQueue mRequestQueue = Volley.newRequestQueue(getContext());
                 String url = "http://10.0.2.2:8189/craftmaster/api/v1/offers";
                 JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext()),
-                        Request.Method.PUT,
+                        Request.Method.POST,
                         url,
                         offerJson,
                         response -> {

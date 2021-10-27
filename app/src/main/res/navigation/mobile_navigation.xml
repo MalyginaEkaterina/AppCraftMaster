@@ -84,4 +84,14 @@
         android:name="com.example.appcraftmaster.ui.findTask.AddResponseFragment"
         android:label="@string/label_nav_add_response"
         tools:layout="@layout/fragment_add_response" />
+
+    <fragment
+        android:id="@+id/nav_exec_task_full_info"
+        android:name="com.example.appcraftmaster.ui.myTasks.ExecTaskFullInfo"
+        tools:layout="@layout/fragment_exec_task_full_info" />
+
+    <fragment
+        android:id="@+id/nav_customer_full_info"
+        android:name="com.example.appcraftmaster.ui.myTasks.CustomerInfoFragment"
+        tools:layout="@layout/fragment_customer_full_info" />
 </navigation>

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class Task {
     private String title;
     private String description;
-    private Integer serviceId;
+    private Integer occupationId;
 }

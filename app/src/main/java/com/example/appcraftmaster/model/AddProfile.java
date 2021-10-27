@@ -1,17 +1,15 @@
 package com.example.appcraftmaster.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-public class ProfileDto {
-    private Integer category;
+public class AddProfile {
+    private Integer occupationId;
     private Integer workExp;
     private String description;
 
-    public ProfileDto(Profile profile) {
-        this.category = profile.getOccupation().getId();
+    public AddProfile(Profile profile) {
+        this.occupationId = profile.getOccupation().getId();
         this.workExp = profile.getWorkExp();
         this.description = profile.getDescription();
     }

@@ -1,5 +1,7 @@
 package com.example.appcraftmaster.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class SignUpRequest {
     private String login;
+    private String name;
     private String password;
-    private String fio;
-    private String phone;
+    private List<CredentialDto> credentialDtos;
 }

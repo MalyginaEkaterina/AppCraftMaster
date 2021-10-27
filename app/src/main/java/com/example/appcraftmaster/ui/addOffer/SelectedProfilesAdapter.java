@@ -1,20 +1,14 @@
 package com.example.appcraftmaster.ui.addOffer;
 
-import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appcraftmaster.MyApp;
 import com.example.appcraftmaster.R;
-import com.example.appcraftmaster.model.Category;
 import com.example.appcraftmaster.model.Profile;
 import com.example.appcraftmaster.ui.WorkExp;
 
@@ -47,9 +41,13 @@ public class SelectedProfilesAdapter extends RecyclerView.Adapter<SelectedProfil
     @Override
     public void onBindViewHolder(@NonNull SelectedProfilesViewHolder holder, int position) {
         Profile profile = selectedProfiles.get(position);
-        holder.textViewSelProfileCatValue.setText(String.format("%s", profile.getCategory().getName()));
-        holder.textViewSelProfileWorkExpValue.setText(String.format("%s", WorkExp.getTextById(profile.getWorkExp())));
-        holder.textViewSelProfileDescrValue.setText(String.format("%s", profile.getDescription()));
+        holder.textViewSelProfileCatValue.setText(String.format("%s", profile.getOccupation().getName()));
+        if (profile.getWorkExp() != null) {
+            holder.textViewSelProfileWorkExpValue.setText(String.format("%s", WorkExp.getTextById(profile.getWorkExp())));
+        }
+        if (profile.getDescription() != null) {
+            holder.textViewSelProfileDescrValue.setText(String.format("%s", profile.getDescription()));
+        }
         holder.itemView.setOnCreateContextMenuListener((menu, v, menuInfo) -> menu.add("Удалить").setOnMenuItemClickListener(item -> {
             if (onProfileContextMenuListener != null) {
                 onProfileContextMenuListener.onContextMenuClick(position);

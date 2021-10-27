@@ -11,22 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appcraftmaster.MyApp;
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.model.Category;
-import com.example.appcraftmaster.ui.categories.CategoriesAdapter;
+import com.example.appcraftmaster.model.Occupation;
 
 import java.util.List;
 
 public class SelectCategoriesAdapter extends RecyclerView.Adapter<SelectCategoriesAdapter.SelectedCategoriesViewHolder> {
     private List<Category> categories;
-    private List<Category> addedCategories;
+    private List<Integer> addedCategoriesId;
     private OnCategoryClickListener onCategoryClickListener;
     private OnCategorySelectListener onCategorySelectListener;
 
-    public SelectCategoriesAdapter(List<Category> categories, List<Category> addedCategories) {
+    public SelectCategoriesAdapter(List<Category> categories, List<Integer> addedCategories) {
         this.categories = categories;
-        this.addedCategories = addedCategories;
+        this.addedCategoriesId = addedCategories;
     }
 
     interface OnCategoryClickListener {
@@ -60,7 +59,7 @@ public class SelectCategoriesAdapter extends RecyclerView.Adapter<SelectCategori
         if (category.getChild().isEmpty()) {
             holder.textViewCatItemCur.setVisibility(View.INVISIBLE);
         }
-        if (addedCategories.contains(category)) {
+        if (addedCategoriesId.contains(category.getId())) {
             holder.buttonSelectCategory.setEnabled(false);
         }
     }

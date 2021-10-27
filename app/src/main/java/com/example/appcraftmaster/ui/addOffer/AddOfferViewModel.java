@@ -15,6 +15,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appcraftmaster.Common;
 import com.example.appcraftmaster.StatusCode;
+import com.example.appcraftmaster.model.AddProfile;
 import com.example.appcraftmaster.model.AddProfilesDto;
 import com.example.appcraftmaster.model.DeleteProfilesDto;
 import com.example.appcraftmaster.model.Profile;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddOfferViewModel extends AndroidViewModel {
     public AddOfferViewModel(@NonNull Application application) {
@@ -36,7 +38,7 @@ public class AddOfferViewModel extends AndroidViewModel {
     public LiveData<ArrayList<Profile>> updateServerProfiles() {
         MutableLiveData<ArrayList<Profile>> serverProfiles = new MutableLiveData<>();
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
-        String url = "http://10.0.2.2:8189/craftmaster/api/v1/profiles/";
+        String url = "http://10.0.2.2:8189/craftmaster/api/v1/userprofiles/my_profiles";
         JsonArrayRequest request = new Common.JsonArrayRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
                 Request.Method.GET,
                 url,
@@ -53,13 +55,15 @@ public class AddOfferViewModel extends AndroidViewModel {
     public LiveData<Integer> addProfilesReq(List<Profile> addedProfiles) {
         MutableLiveData<Integer> addStatus = new MutableLiveData<>();
         try {
-            AddProfilesDto addProfilesDto = new AddProfilesDto(addedProfiles);
+            AddProfilesDto addProfilesDto = new AddProfilesDto(addedProfiles.stream().map(AddProfile::new).collect(Collectors.toList()));
+            System.out.println("addProfilesDto::" + addProfilesDto);
             Gson gson = new Gson();
             JSONObject addProfilesJson = new JSONObject(gson.toJson(addProfilesDto));
+            System.out.println(addProfilesJson);
             RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
-            String url = "http://10.0.2.2:8189/craftmaster/api/v1/profiles/";
+            String url = "http://10.0.2.2:8189/craftmaster/api/v1/userprofiles/add_profiles";
             JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
-                    Request.Method.PUT,
+                    Request.Method.POST,
                     url,
                     addProfilesJson,
                     response -> {
@@ -84,7 +88,7 @@ public class AddOfferViewModel extends AndroidViewModel {
             Gson gson = new Gson();
             JSONObject deleteJson = new JSONObject(gson.toJson(deleteProfilesDto));
             RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
-            String url = "http://10.0.2.2:8189/craftmaster/api/v1/profiles/delete";
+            String url = "http://10.0.2.2:8189/craftmaster/api/v1/userprofiles/delete_profiles";
             System.out.println("deleteJson::" + deleteJson);
             JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
                     Request.Method.POST,

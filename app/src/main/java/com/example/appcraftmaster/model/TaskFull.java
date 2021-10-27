@@ -7,8 +7,8 @@ public class TaskFull {
     private Long id;
     private String title;
     private String description;
-    private String category;
+    private String occupationName;
     private String createdAt;
     private Integer status;
-    private Response acceptedResponse;
+    private Response acceptedBid;
 }

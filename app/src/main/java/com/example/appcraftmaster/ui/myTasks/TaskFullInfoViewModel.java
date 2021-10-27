@@ -53,7 +53,7 @@ public class TaskFullInfoViewModel extends AndroidViewModel {
     public void updateResponses() {
         responses = new MutableLiveData<>();
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
-        String url = String.format("http://10.0.2.2:8189/craftmaster/api/v1/offers/get_responses/%d", taskId);
+        String url = String.format("http://10.0.2.2:8189/craftmaster/api/v1/bids/offer_bids/%d", taskId);
         System.out.println("Send get responses request for task " + taskId);
         JsonArrayRequest request = new Common.JsonArrayRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
                 Request.Method.GET,
@@ -74,7 +74,7 @@ public class TaskFullInfoViewModel extends AndroidViewModel {
     public LiveData<Integer> acceptResponse(Long respId) {
         MutableLiveData<Integer> acceptStatus = new MutableLiveData<>();
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
-        String url = String.format("http://10.0.2.2:8189/craftmaster/api/v1/offers/accept_response/%d", respId);
+        String url = String.format("http://10.0.2.2:8189/craftmaster/api/v1/bids/accept_bid/%d", respId);
         JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
                 Request.Method.POST,
                 url,

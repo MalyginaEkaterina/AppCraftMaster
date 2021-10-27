@@ -24,6 +24,7 @@ import java.util.Map;
 public class Common {
     public static final Integer INCORRECT_LOGIN_PASSWORD = 401;
     public static final String PHONE_CREDENTIAL = "phone";
+    public static final String EMAIL_CREDENTIAL = "email";
 
     public static String getCredentialWithCode(String code, List<Credential> credentials) {
         for (Credential c : credentials) {

@@ -11,4 +11,5 @@ public class Response {
     private BigDecimal price;
     private Long dateBeg;
     private Long dateEnd;
+    private Float rating;
 }

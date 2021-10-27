@@ -2,7 +2,6 @@ package com.example.appcraftmaster;
 
 import android.app.Application;
 
-import com.example.appcraftmaster.model.Category;
 import com.example.appcraftmaster.model.CategoryList;
 import com.example.appcraftmaster.model.Profile;
 import com.example.appcraftmaster.model.ProfileList;
@@ -113,7 +112,11 @@ public class MyApp extends Application {
     public void setTaskStatusAssigned(int pos, Response acceptedResp) {
         TaskFull task = myTasks.get(pos);
         task.setStatus(TaskStatus.ASSIGNED.getId());
-        task.setAcceptedResponse(acceptedResp);
+        task.setAcceptedBid(acceptedResp);
 
+    }
+
+    public void setTaskRating(int position, float rating) {
+        myTasks.get(position).getAcceptedBid().setRating(rating);
     }
 }

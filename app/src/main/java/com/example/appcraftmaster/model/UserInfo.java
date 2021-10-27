@@ -8,6 +8,8 @@ import lombok.Data;
 public class UserInfo {
     private String login;
     private String name;
+    private Float rating;
+    private Integer numRatings;
     private List<Credential> credentials;
 
     public void setValue(UserInfo value) {

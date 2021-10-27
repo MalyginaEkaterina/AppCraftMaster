@@ -1,6 +1,5 @@
 package com.example.appcraftmaster.ui.addOffer;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appcraftmaster.MyApp;
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.model.Category;
-import com.example.appcraftmaster.ui.categories.CategoriesAdapter;
 import com.example.appcraftmaster.ui.categories.CategoriesFragment;
 import com.example.appcraftmaster.ui.categories.ChildCategoriesFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,8 +47,8 @@ public class SelectCategoriesFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(category.getName());
             categoryList = category.getChild();
         }
-        List<Category> addedCategories = ((MyApp) getActivity().getApplicationContext()).getProfileList().stream().map(m -> m.getCategory()).collect(Collectors.toList());
-        SelectCategoriesAdapter adapter = new SelectCategoriesAdapter(categoryList, addedCategories);
+        List<Integer> addedCategoriesId = ((MyApp) getActivity().getApplicationContext()).getProfileList().stream().map(m -> m.getOccupation().getId()).collect(Collectors.toList());
+        SelectCategoriesAdapter adapter = new SelectCategoriesAdapter(categoryList, addedCategoriesId);
         recyclerViewCategories.setAdapter(adapter);
         adapter.setOnCategoryClickListener(position -> {
             Category newCategory = categoryList.get(position);

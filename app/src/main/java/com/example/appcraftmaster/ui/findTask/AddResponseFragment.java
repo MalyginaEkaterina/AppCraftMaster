@@ -90,12 +90,7 @@ public class AddResponseFragment extends Fragment {
 
         taskId = getArguments().getLong("taskId");
 
-        buttonSaveResponse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendAddResponseReq();
-            }
-        });
+        buttonSaveResponse.setOnClickListener(v -> sendAddResponseReq());
         return view;
     }
 
@@ -107,7 +102,7 @@ public class AddResponseFragment extends Fragment {
                 AddResponseDto addResponseDto = new AddResponseDto(taskId, new BigDecimal(editTextAddRespPrice.getText().toString()), respBegin, respEnd);Gson gson = new Gson();
                 JSONObject addResponseDtoJson = new JSONObject(gson.toJson(addResponseDto));
                 RequestQueue mRequestQueue = Volley.newRequestQueue(getContext());
-                String url = "http://10.0.2.2:8189/craftmaster/api/v1/offers/add_response";
+                String url = "http://10.0.2.2:8189/craftmaster/api/v1/bids/add_bid";
                 JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext()),
                         Request.Method.POST,
                         url,

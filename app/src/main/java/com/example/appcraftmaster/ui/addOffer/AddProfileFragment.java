@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 import com.example.appcraftmaster.MyApp;
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.model.Category;
+import com.example.appcraftmaster.model.Occupation;
 import com.example.appcraftmaster.model.Profile;
 import com.example.appcraftmaster.ui.WorkExp;
 import com.example.appcraftmaster.ui.categories.ChildCategoriesFragment;
@@ -64,7 +65,7 @@ public class AddProfileFragment extends Fragment {
         } else  if (workExp == null) {
             Toast.makeText(getContext(), R.string.add_profile_toast_input_work_exp, Toast.LENGTH_LONG).show();
         } else {
-            Profile newProfile = new Profile(null, selectedCategory, workExp.getId(), editTextAddProfileDescr.getText().toString());
+            Profile newProfile = new Profile(null, new Occupation(selectedCategory), workExp.getId(), editTextAddProfileDescr.getText().toString());
             ((MyApp) getActivity().getApplicationContext()).addInProfileList(newProfile);
             navController.navigateUp();
         }

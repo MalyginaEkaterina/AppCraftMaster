@@ -43,7 +43,7 @@ public class OtherTaskFullInfoFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(task.getTitle());
 
         textViewTaskFullInfoName.setText(task.getTitle());
-        textViewTaskFullInfoCat.setText(task.getCategory());
+        textViewTaskFullInfoCat.setText(task.getOccupationName());
         textViewTaskFullInfoDescr.setText(task.getDescription());
         textViewTaskFullInfoCreated.setText(String.format("%s %s", task.getCreatedAt().substring(0, 10), task.getCreatedAt().substring(11, 16)));
         otherTaskInfoExecutorName.setText(task.getCustomer().getName());

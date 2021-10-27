@@ -55,8 +55,8 @@ public class MyTaskResponsesAdapter extends RecyclerView.Adapter<MyTaskResponses
             holder.buttonAcceptResponse.setVisibility(Button.VISIBLE);
         } else {
             holder.buttonAcceptResponse.setVisibility(Button.GONE);
-            if (task.getAcceptedResponse() != null) {
-                if (task.getAcceptedResponse().getId().equals(response.getId())) {
+            if (task.getAcceptedBid() != null) {
+                if (task.getAcceptedBid().getId().equals(response.getId())) {
                     holder.buttonAccepted.setVisibility(Button.VISIBLE);
                     holder.buttonAccepted.setEnabled(false);
                 }

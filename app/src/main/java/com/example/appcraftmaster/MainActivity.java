@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         if (categories == null) {
             mRequestQueue = Volley.newRequestQueue(getApplication());
             categories = new MutableLiveData<>();
-            String url = "http://10.0.2.2:8189/craftmaster/api/v1/services/";
+            String url = "http://10.0.2.2:8189/craftmaster/api/v1/occupations/";
             JsonArrayRequest request = new Common.JsonArrayRequestWithToken(preferences, Request.Method.GET,
                     url,
                     null,
@@ -223,24 +223,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return categories;
     }
-
-//    public LiveData<List<Profile>> getProfiles() {
-//        if (profiles == null) {
-//            mRequestQueue = Volley.newRequestQueue(getApplication());
-//            profiles = new MutableLiveData<>();
-//            String url = "http://10.0.2.2:8189/craftmaster/api/v1/profiles/";
-//            JsonArrayRequest request = new Common.JsonArrayRequestWithToken(preferences, Request.Method.GET,
-//                    url,
-//                    null,
-//                    response -> {
-//                        Gson gson = new Gson();
-//                        profiles.setValue(gson.fromJson(response.toString(), new TypeToken<List<Profile>>() {
-//                        }.getType()));
-//                    }, error -> error.printStackTrace());
-//            mRequestQueue.add(request);
-//        }
-//        return profiles;
-//    }
 
     private class StringRequestWithToken extends StringRequest {
 

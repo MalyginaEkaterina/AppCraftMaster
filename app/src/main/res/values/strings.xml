@@ -25,8 +25,10 @@
     <string name="reg_pass_hint">Пароль</string>
     <string name="reg_fio_hint">Имя</string>
     <string name="reg_phone_hint">Номер телефона</string>
+    <string name="reg_email_hint">Адрес электронной почты</string>
     <string name="reg_btn_text">Зарегистрироваться</string>
     <string name="reg_success">Регистрация прошла успешно</string>
+    <string name="reg_login_exists">Пользователь с таким логином уже существует</string>
     <string name="reg_not_success">Регистрация не завершена. Попробуйте позднее.</string>
     <string name="toast_log_out">Выполняется выход</string>
     <string name="toast_incorrect_login_password">Некорректные логин и пароль</string>
@@ -65,7 +67,7 @@
     <string name="text_view_my_task_cat_label">Категория:</string>
     <string name="text_view_my_task_status_label">Статус:</string>
     <string name="btn_close_task_text">Закрыть</string>
-    <string name="btn_done_task_text">Выполнено</string>
+    <string name="btn_done_task_text">Выполнить</string>
     <string name="toast_server_error">Не удалось обновить</string>
     <string name="select_date_title">Выберите дату</string>
     <string name="label_nav_add_response">Добавить отклик</string>

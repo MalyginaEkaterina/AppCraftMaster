@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +16,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.appcraftmaster.MainActivity;
 import com.example.appcraftmaster.MyApp;
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.StatusCode;
 import com.example.appcraftmaster.model.TaskFull;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -36,6 +38,8 @@ public class CustomerTasks extends Fragment {
     private MyTasksAdapter adapter;
     private TextView textViewMyTasksEmpty;
     private NavController navController;
+    private Boolean isRefreshing;
+    private SwipeRefreshLayout swipeRefreshMyTasks;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class CustomerTasks extends Fragment {
         View view = inflater.inflate(R.layout.fragment_customer_tasks, container, false);
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment_content_main);
 
+        swipeRefreshMyTasks = view.findViewById(R.id.swipeRefreshMyTasks);
         customerTasksViewModel = new ViewModelProvider(getActivity()).get(CustomerTasksViewModel.class);
         recyclerViewMyTasks = view.findViewById(R.id.recyclerViewMyTasks);
         recyclerViewMyTasks.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -54,21 +59,43 @@ public class CustomerTasks extends Fragment {
         progressBarMyTasks.setVisibility(ProgressBar.INVISIBLE);
         textViewMyTasksEmpty = view.findViewById(R.id.textViewMyTasksEmpty);
         textViewMyTasksEmpty.setVisibility(TextView.INVISIBLE);
+        isRefreshing = false;
 
 
         List<TaskFull> myTasks = ((MyApp) getActivity().getApplicationContext()).getMyTasks();
-        adapter = new MyTasksAdapter(myTasks);
+        adapter = new MyTasksAdapter(myTasks, this);
         recyclerViewMyTasks.setAdapter(adapter);
         if (myTasks.isEmpty()) {
             textViewMyTasksEmpty.setVisibility(TextView.VISIBLE);
         }
         if (((MyApp) getActivity().getApplicationContext()).getNeedUpdateMyTasks()) {
+            progressBarMyTasks.setVisibility(ProgressBar.VISIBLE);
             updateTasks();
         }
         adapter.setOnCloseBtnClickListener(position -> {
             TaskFull closableTask = myTasks.get(position);
             closeTask(closableTask.getId(), position);
         });
+
+        adapter.setOnRateBtnClickListener(position -> {
+            TaskFull taskFull = myTasks.get(position);
+            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+            View myView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_rating, null, false);
+            RatingBar ratingBarSaveRate = myView.findViewById(R.id.ratingBarSaveRate);
+            materialAlertDialogBuilder.setView(myView)
+                    .setTitle("Оцените работу")
+                    .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                        customerTasksViewModel.rateTask(taskFull.getAcceptedBid().getId(), ratingBarSaveRate.getRating())
+                                .observe(getViewLifecycleOwner(), status -> {
+                                    System.out.println("status::" + status);
+                                    if (status.equals(StatusCode.STATUS_OK)) {
+                                        ((MyApp) getActivity().getApplicationContext()).setTaskRating(position, ratingBarSaveRate.getRating());
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                    dialog.dismiss();
+                                });
+                    })
+                    .show();});
 
         adapter.setOnItemClickListener(position -> {
             try {
@@ -80,6 +107,16 @@ public class CustomerTasks extends Fragment {
                 navController.navigate(R.id.nav_task_full_info, bundle);
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+        });
+
+        swipeRefreshMyTasks.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!isRefreshing) {
+                    isRefreshing = true;
+                    updateTasks();
+                }
             }
         });
         return view;
@@ -98,7 +135,6 @@ public class CustomerTasks extends Fragment {
     }
 
     public void updateTasks() {
-        progressBarMyTasks.setVisibility(ProgressBar.VISIBLE);
         textViewMyTasksEmpty.setVisibility(TextView.INVISIBLE);
         customerTasksViewModel.updateMyTasks().observe(getViewLifecycleOwner(), myTasks -> {
             progressBarMyTasks.setVisibility(ProgressBar.INVISIBLE);
@@ -112,6 +148,8 @@ public class CustomerTasks extends Fragment {
             } else {
                 Toast.makeText(getContext(), R.string.toast_server_error, Toast.LENGTH_LONG).show();
             }
+            isRefreshing = false;
+            swipeRefreshMyTasks.setRefreshing(false);
         });
     }
 }

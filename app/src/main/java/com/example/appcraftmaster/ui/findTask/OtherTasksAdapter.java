@@ -3,7 +3,6 @@ package com.example.appcraftmaster.ui.findTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,9 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appcraftmaster.R;
 import com.example.appcraftmaster.model.OtherTaskFull;
-import com.example.appcraftmaster.model.TaskFull;
-import com.example.appcraftmaster.ui.myTasks.MyTasksAdapter;
-import com.example.appcraftmaster.ui.myTasks.TaskStatus;
 
 import java.util.List;
 
@@ -44,7 +40,7 @@ public class OtherTasksAdapter extends RecyclerView.Adapter<OtherTasksAdapter.Ot
     public void onBindViewHolder(@NonNull OtherTasksViewHolder holder, int position) {
         OtherTaskFull otherTask = otherTasks.get(position);
         holder.textViewOtherTaskTitle.setText(String.format("%s", otherTask.getTitle()));
-        holder.textViewOtherTaskCat.setText(String.format("%s", otherTask.getCategory()));
+        holder.textViewOtherTaskCat.setText(String.format("%s", otherTask.getOccupationName()));
 
     }
 

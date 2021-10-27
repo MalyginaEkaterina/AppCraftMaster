@@ -17,6 +17,7 @@ import com.example.appcraftmaster.Common;
 import com.example.appcraftmaster.StatusCode;
 import com.example.appcraftmaster.model.AddProfilesDto;
 import com.example.appcraftmaster.model.Profile;
+import com.example.appcraftmaster.model.SetRatingDto;
 import com.example.appcraftmaster.model.Status;
 import com.example.appcraftmaster.model.TaskFull;
 import com.example.appcraftmaster.model.UpdateTaskStatusDto;
@@ -39,8 +40,8 @@ public class CustomerTasksViewModel extends AndroidViewModel {
     public LiveData<ArrayList<TaskFull>> updateMyTasks() {
         MutableLiveData<ArrayList<TaskFull>> myTasks = new MutableLiveData<>();
         RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
-        String url = "http://10.0.2.2:8189/craftmaster/api/v1/offers/my";
-        System.out.println("Send update req");
+        String url = "http://10.0.2.2:8189/craftmaster/api/v1/offers/my_offers";
+        System.out.println("Send update my tasks request");
         JsonArrayRequest request = new Common.JsonArrayRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
                 Request.Method.GET,
                 url,
@@ -67,7 +68,7 @@ public class CustomerTasksViewModel extends AndroidViewModel {
             RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
             String url = "http://10.0.2.2:8189/craftmaster/api/v1/offers/update_status";
             JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
-                    Request.Method.POST,
+                    Request.Method.PUT,
                     url,
                     updateTaskStatusJson,
                     response -> {
@@ -85,5 +86,30 @@ public class CustomerTasksViewModel extends AndroidViewModel {
         return closeStatus;
     }
 
-
+    public LiveData<Integer> rateTask(Long bidId, float rating) {
+        MutableLiveData<Integer> status = new MutableLiveData<>();
+        try {
+            SetRatingDto setRatingDto = new SetRatingDto(bidId, rating);
+            Gson gson = new Gson();
+            JSONObject setRatingDtoJson = new JSONObject(gson.toJson(setRatingDto));
+            RequestQueue mRequestQueue = Volley.newRequestQueue(getApplication());
+            String url = "http://10.0.2.2:8189/craftmaster/api/v1/bids/set_rating";
+            JsonObjectRequest request = new Common.JsonObjectRequestWithToken(PreferenceManager.getDefaultSharedPreferences(getApplication()),
+                    Request.Method.POST,
+                    url,
+                    setRatingDtoJson,
+                    response -> {
+                        System.out.println(response);
+                        status.setValue(gson.fromJson(response.toString(), Status.class).getStatus());
+                    },
+                    error -> {
+                        error.printStackTrace();
+                        status.setValue(StatusCode.STATUS_ERROR);
+                    });
+            mRequestQueue.add(request);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
 }
